@@ -17,7 +17,6 @@ Material:
   - _ENABLECLOUDSROTATION_ON
   - _ENABLESTARSTWINKLING_ON
   - _ENABLESTARS_ON
-  - _ENABLESUN_ON
   m_InvalidKeywords:
   - _BUILTINFOG_ON
   - _CLOUDS_ON
@@ -233,7 +232,7 @@ Material:
     - _EnableStarsRotation: 0
     - _EnableStarsSunMask: 1
     - _EnableStarsTwinkling: 1
-    - _EnableSun: 1
+    - _EnableSun: 0
     - _EnableSunMask: 1
     - _EnableSunMoon: 1
     - _EnableSunMoonMask: 1
@@ -264,7 +263,7 @@ Material:
     - _Mode: 0
     - _MoonCat: 1
     - _MoonDirectionMode: 0
-    - _MoonIntensity: 1
+    - _MoonIntensity: 0.41
     - _MoonSize: 0.5
     - _OcclusionStrength: 1
     - _Parallax: 0.02
@@ -300,7 +299,7 @@ Material:
     - _StarsSunMask: 0.03
     - _SunCat: 1
     - _SunDirectionMode: 0
-    - _SunIntensity: 1
+    - _SunIntensity: 0.19
     - _SunRadiusB: 0
     - _SunRadoisA: 0
     - _SunSize: 0.9
@@ -347,7 +346,7 @@ Material:
     - _SkyboxRotationAxis: {r: 0, g: 1, b: 0, a: 0}
     - _Skycol: {r: 0.27941146, g: 0.64219046, b: 1, a: 0}
     - _StarsRotationAxis: {r: 0, g: 1, b: 0, a: 0}
-    - _SunColor: {r: 1, g: 0.9172414, b: 0.64705884, a: 1}
+    - _SunColor: {r: 1, g: 1, b: 1, a: 1}
     - _SunDirection: {r: 0, g: 0, b: 1, a: 0}
     - _Tint: {r: 1, g: 1, b: 1, a: 0}
     - _Vector1: {r: 0, g: 1, b: 1, a: 0}
