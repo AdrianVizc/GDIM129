@@ -8,13 +8,11 @@ public class Dialogue : MonoBehaviour
     [SerializeField] private TextMeshProUGUI textComponent;
     [SerializeField] private string[] dialogueLines;
     [SerializeField] private float textDisplaySpeed;
+    [SerializeField] private int index;
 
-    private int index;
-
-    // Start is called before the first frame update
-    void Start()
+    private void OnEnable()
     {
-        this.gameObject.SetActive(false);
+        index = 0;
         textComponent.text = string.Empty;
         StartDialogue();
     }
@@ -39,7 +37,10 @@ public class Dialogue : MonoBehaviour
     private void StartDialogue()
     {
         index = 0;
-        StartCoroutine(TypeLine());
+        if (this.gameObject.activeSelf)
+        {
+            StartCoroutine(TypeLine());
+        }
     }
 
     private IEnumerator TypeLine()

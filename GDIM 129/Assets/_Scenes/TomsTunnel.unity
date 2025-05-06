@@ -340,6 +340,7 @@ GameObject:
   - component: {fileID: 1121349435}
   - component: {fileID: 1121349434}
   - component: {fileID: 1121349433}
+  - component: {fileID: 1121349437}
   m_Layer: 0
   m_Name: DialogueTest
   m_TagString: Untagged
@@ -433,6 +434,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1121349437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1121349432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7630ebc4ac9c01e4c8bb7f9ad8732dae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueHolder: {fileID: 1172042812}
 --- !u!1 &1172042812
 GameObject:
   m_ObjectHideFlags: 0
@@ -446,7 +460,7 @@ GameObject:
   - component: {fileID: 1172042815}
   - component: {fileID: 1172042814}
   m_Layer: 5
-  m_Name: DialogueBox
+  m_Name: WelcomeDialogue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -489,7 +503,8 @@ MonoBehaviour:
   - Hello!
   - Welcome!
   - To erm...this game...
-  textDisplaySpeed: 0.5
+  textDisplaySpeed: 2
+  index: 0
 --- !u!114 &1172042815
 MonoBehaviour:
   m_ObjectHideFlags: 0

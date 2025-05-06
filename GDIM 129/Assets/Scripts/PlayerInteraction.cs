@@ -10,15 +10,34 @@ public class PlayerInteraction : MonoBehaviour
 
     private IInteractable interactingObj;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(interactKey))
+        {
+            //check for interactable object
+            CheckIfInteractable();
+
+            if (interactingObj != null)
+            {
+                interactingObj.Interact();
+            }
+        }
+    }
+
+    private void CheckIfInteractable()
+    {
+        Ray ray = playerCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, interactDistance))
+        {
+            interactingObj = hit.collider.GetComponent<IInteractable>();
+            Debug.Log("Hit: " + interactingObj);
+        }
+        else
+        {
+            interactingObj = null;
+        }
     }
 }
