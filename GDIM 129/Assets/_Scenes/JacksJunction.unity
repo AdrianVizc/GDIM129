@@ -1953,6 +1953,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8474055535061439241, guid: daa2c58bf715d0f4ab339ee2bec49788, type: 3}
   m_PrefabInstance: {fileID: 8798675454401147043}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &4008941206923043187 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4969546428737674675, guid: 8af6af37156a6d44b9e477f997c4c1f5, type: 3}
+  m_PrefabInstance: {fileID: 5812042430364930016}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5812042430364930016
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2016,12 +2021,33 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4969546428737674675, guid: 8af6af37156a6d44b9e477f997c4c1f5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8125550157732971652}
   m_SourcePrefab: {fileID: 100100000, guid: 8af6af37156a6d44b9e477f997c4c1f5, type: 3}
 --- !u!4 &7504201863280236275 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8775263024729843280, guid: daa2c58bf715d0f4ab339ee2bec49788, type: 3}
   m_PrefabInstance: {fileID: 8798675454401147043}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8125550157732971652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4008941206923043187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cdc252f83e7b8d448b7c258b8bc409d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraWithoutFog: {fileID: 8500282876791140728}
+--- !u!20 &8500282876791140728 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 8310286742279367245, guid: 8af6af37156a6d44b9e477f997c4c1f5, type: 3}
+  m_PrefabInstance: {fileID: 5812042430364930016}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8798675454401147043
 PrefabInstance:
@@ -2071,9 +2097,89 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1827501538515281258, guid: daa2c58bf715d0f4ab339ee2bec49788, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 6.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1827501538515281258, guid: daa2c58bf715d0f4ab339ee2bec49788, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 13.57
+      objectReference: {fileID: 0}
+    - target: {fileID: 1827501538515281258, guid: daa2c58bf715d0f4ab339ee2bec49788, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.63015527
+      objectReference: {fileID: 0}
+    - target: {fileID: 1827501538515281258, guid: daa2c58bf715d0f4ab339ee2bec49788, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.69595367
+      objectReference: {fileID: 0}
+    - target: {fileID: 1827501538515281258, guid: daa2c58bf715d0f4ab339ee2bec49788, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.12509352
+      objectReference: {fileID: 0}
+    - target: {fileID: 1827501538515281258, guid: daa2c58bf715d0f4ab339ee2bec49788, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.32078728
+      objectReference: {fileID: 0}
+    - target: {fileID: 1827501538515281258, guid: daa2c58bf715d0f4ab339ee2bec49788, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 127.16901
+      objectReference: {fileID: 0}
+    - target: {fileID: 1827501538515281258, guid: daa2c58bf715d0f4ab339ee2bec49788, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 1827501538515281258, guid: daa2c58bf715d0f4ab339ee2bec49788, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 73.211
+      objectReference: {fileID: 0}
     - target: {fileID: 8336494785223820535, guid: daa2c58bf715d0f4ab339ee2bec49788, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 9134111623567214018, guid: daa2c58bf715d0f4ab339ee2bec49788, type: 3}
+      propertyPath: simulationSpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9134111623567214018, guid: daa2c58bf715d0f4ab339ee2bec49788, type: 3}
+      propertyPath: moveWithTransform
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9134111623567214018, guid: daa2c58bf715d0f4ab339ee2bec49788, type: 3}
+      propertyPath: LightsModule.light
+      value: 
+      objectReference: {fileID: 2075058592}
+    - target: {fileID: 9134111623567214018, guid: daa2c58bf715d0f4ab339ee2bec49788, type: 3}
+      propertyPath: LightsModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9134111623567214018, guid: daa2c58bf715d0f4ab339ee2bec49788, type: 3}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9134111623567214018, guid: daa2c58bf715d0f4ab339ee2bec49788, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 9134111623567214018, guid: daa2c58bf715d0f4ab339ee2bec49788, type: 3}
+      propertyPath: InitialModule.startRotation.scalar
+      value: 3.1415925
+      objectReference: {fileID: 0}
+    - target: {fileID: 9134111623567214018, guid: daa2c58bf715d0f4ab339ee2bec49788, type: 3}
+      propertyPath: InitialModule.startRotation.minScalar
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9134111623567214018, guid: daa2c58bf715d0f4ab339ee2bec49788, type: 3}
+      propertyPath: InitialModule.startRotation.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9134111623567214018, guid: daa2c58bf715d0f4ab339ee2bec49788, type: 3}
+      propertyPath: InitialModule.startRotationX.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9134111623567214018, guid: daa2c58bf715d0f4ab339ee2bec49788, type: 3}
+      propertyPath: InitialModule.startRotationY.minMaxState
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
