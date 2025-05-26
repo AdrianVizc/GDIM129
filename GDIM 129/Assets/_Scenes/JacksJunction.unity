@@ -1957,11 +1957,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8474055535061439241, guid: daa2c58bf715d0f4ab339ee2bec49788, type: 3}
   m_PrefabInstance: {fileID: 8798675454401147043}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &4008941206923043187 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4969546428737674675, guid: 8af6af37156a6d44b9e477f997c4c1f5, type: 3}
-  m_PrefabInstance: {fileID: 5812042430364930016}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5812042430364930016
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2014,6 +2009,10 @@ PrefabInstance:
       propertyPath: cameraPosition
       value: 
       objectReference: {fileID: 7504201863280236275}
+    - target: {fileID: 5114921234644874972, guid: 8af6af37156a6d44b9e477f997c4c1f5, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5834182834930304358, guid: 8af6af37156a6d44b9e477f997c4c1f5, type: 3}
       propertyPath: orientation
       value: 
@@ -2025,33 +2024,12 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4969546428737674675, guid: 8af6af37156a6d44b9e477f997c4c1f5, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 8125550157732971652}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8af6af37156a6d44b9e477f997c4c1f5, type: 3}
 --- !u!4 &7504201863280236275 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8775263024729843280, guid: daa2c58bf715d0f4ab339ee2bec49788, type: 3}
   m_PrefabInstance: {fileID: 8798675454401147043}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &8125550157732971652
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4008941206923043187}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6cdc252f83e7b8d448b7c258b8bc409d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cameraWithoutFog: {fileID: 8500282876791140728}
---- !u!20 &8500282876791140728 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 8310286742279367245, guid: 8af6af37156a6d44b9e477f997c4c1f5, type: 3}
-  m_PrefabInstance: {fileID: 5812042430364930016}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8798675454401147043
 PrefabInstance:
