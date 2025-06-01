@@ -227,7 +227,7 @@
       }
     },
     "com.unity.visualscripting": {
-      "version": "1.9.1",
+      "version": "1.9.7",
       "depth": 0,
       "source": "registry",
       "dependencies": {
