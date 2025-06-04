@@ -5,13 +5,22 @@ using UnityEngine;
 public class InteractSatellite : MonoBehaviour
 {
     [SerializeField] private Animator animator;
+    [SerializeField] private GameObject interactUI;
     private bool playerInRange;
+
+    private void Start()
+    {
+        interactUI.SetActive(false);
+    }
 
     private void Update()
     {
         if(playerInRange && Input.GetKeyDown(KeyCode.E))
         {
             animator.SetBool("inRange", true);
+            gameObject.GetComponent<Light>().color = Color.green;
+            interactUI.SetActive(false);
+            Destroy(gameObject.GetComponent<SphereCollider>());
         }
     }
 
@@ -20,7 +29,7 @@ public class InteractSatellite : MonoBehaviour
         if(other.CompareTag("Player"))
         {
             playerInRange = true;
-            Debug.Log("Player Detected");
+            interactUI.SetActive(true);
         }
     }
 
@@ -29,7 +38,7 @@ public class InteractSatellite : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerInRange = false;
-            Debug.Log("Player Left");
+            interactUI.SetActive(false);
         }
     }
 }
