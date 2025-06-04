@@ -20,6 +20,7 @@ public class InteractSatellite : MonoBehaviour
         if(other.CompareTag("Player"))
         {
             playerInRange = true;
+            Debug.Log("Player Detected");
         }
     }
 
@@ -28,6 +29,7 @@ public class InteractSatellite : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerInRange = false;
+            Debug.Log("Player Left");
         }
     }
 }
