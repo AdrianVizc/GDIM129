@@ -4,15 +4,32 @@ using UnityEngine;
 
 public class InteractSatellite : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private Animator animator;
+    private bool playerInRange;
+
+    private void Update()
     {
-        
+        if(playerInRange && Input.GetKeyDown(KeyCode.E))
+        {
+            animator.SetBool("inRange", true);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter(Collider other)
     {
-        
+        if(other.CompareTag("Player"))
+        {
+            playerInRange = true;
+            Debug.Log("Player Detected");
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerInRange = false;
+            Debug.Log("Player Left");
+        }
     }
 }
