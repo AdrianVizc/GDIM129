@@ -49,7 +49,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1069455501035872651}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -5101,3 +5101,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   orientation: {fileID: 8474055535061439241}
+  isDialogueOn: 0
+  footstepSource: {fileID: 0}
+  interiorStepClip: {fileID: 0}
+  exteriorStepClip: {fileID: 0}
+  stepRate: 0.5
+  bobFrequency: 10
+  bobAmplitude: 0.025

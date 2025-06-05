@@ -30,11 +30,26 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float stepRate = 0.5f;
     private float stepTimer = 0f;
 
+    [Header("Camera Bobbing")]
+    [SerializeField] private float bobFrequency = 5f;
+    [SerializeField] private float bobAmplitude = 0.05f;
+    private Transform playerCamera;
+    private float bobTimer = 0f;
+    private Vector3 cameraInitialPos;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         isDialogueOn = false;
+
+
+        playerCamera = Camera.main.transform;
+
+        if (playerCamera != null)
+        {
+            cameraInitialPos = playerCamera.localPosition;
+        }
     }
 
     private void Update()
@@ -47,6 +62,7 @@ public class PlayerMovement : MonoBehaviour
         rb.drag = grounded ? groundDrag : 0f;
 
         HandleFootsteps();
+        HandleHeadBobbing();
     }
 
     private void FixedUpdate()
@@ -120,6 +136,34 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             stepTimer = 0f;
+        }
+    }
+
+    private void HandleHeadBobbing()
+    {
+        if (playerCamera == null) return;
+
+        Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+
+        if (grounded && flatVel.magnitude > 0.1f && !isDialogueOn)
+        {
+            bobTimer += Time.deltaTime * bobFrequency;
+            float bobOffset = Mathf.Sin(bobTimer) * bobAmplitude;
+
+            playerCamera.localPosition = new Vector3(
+                cameraInitialPos.x,
+                cameraInitialPos.y + bobOffset,
+                cameraInitialPos.z
+            );
+        }
+        else
+        {
+            bobTimer = 0f;
+            playerCamera.localPosition = Vector3.Lerp(
+                playerCamera.localPosition,
+                cameraInitialPos,
+                Time.deltaTime * 5f
+            );
         }
     }
 }
