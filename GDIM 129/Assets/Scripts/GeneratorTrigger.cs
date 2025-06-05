@@ -17,7 +17,7 @@ public class Generator : MonoBehaviour, IInteractable
     {
         dialogueHolder.SetActive(true);
         lightHolder.SetActive(true);
-        interactHolder.SetActive(true);
+        satelliteActivate.SetActive(true);
         interactHolder.SetActive(false);
         
         if (activationAudio != null && !activationAudio.isPlaying)

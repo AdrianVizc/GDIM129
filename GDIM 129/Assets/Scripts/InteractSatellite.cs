@@ -6,8 +6,9 @@ public class InteractSatellite : MonoBehaviour
 {
     [SerializeField] private Animator animator;
     [SerializeField] private GameObject interactUI;
-    [SerializeField] private AudioSource interactAudioSource; // Add this in Inspector and assign an audio clip
+    [SerializeField] private AudioSource interactAudioSource; // Assign in Inspector
     private bool playerInRange;
+    private bool isActivated = false;  // Track if satellite has been activated
 
     private void Start()
     {
@@ -16,7 +17,7 @@ public class InteractSatellite : MonoBehaviour
 
     private void Update()
     {
-        if (playerInRange && Input.GetKeyDown(KeyCode.E))
+        if (!isActivated && playerInRange && Input.GetKeyDown(KeyCode.E))
         {
             animator.SetBool("inRange", true);
             gameObject.GetComponent<Light>().color = Color.green;
@@ -27,12 +28,15 @@ public class InteractSatellite : MonoBehaviour
             {
                 interactAudioSource.Play();
             }
+
+            isActivated = true;  // Prevent further activations
+            playerInRange = false; // Optional: reset
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (!isActivated && other.CompareTag("Player"))
         {
             playerInRange = true;
             interactUI.SetActive(true);
@@ -41,7 +45,7 @@ public class InteractSatellite : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (!isActivated && other.CompareTag("Player"))
         {
             playerInRange = false;
             interactUI.SetActive(false);
