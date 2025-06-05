@@ -6,7 +6,8 @@ using UnityEngine;
 
 public class PauseMenu : MonoBehaviour
 {
-    private bool isPaused;
+    [HideInInspector]
+    public bool isPaused;
     private CanvasGroup canvasGroup;
 
     private void Start()

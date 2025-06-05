@@ -10,17 +10,32 @@ public class Dialogue : MonoBehaviour
     [SerializeField] private float textDisplaySpeed;
     [SerializeField] private int index;
 
+    [Space]
+    [SerializeField] private PlayerMovement playerObject;
+    [SerializeField] private PlayerCam cameraObject;
+
+    private PauseMenu pauseMenuObject;
+
+    private void Start()
+    {
+        pauseMenuObject = GameObject.Find("PauseMenuCanvas").GetComponent<PauseMenu>();
+    }
+
     private void OnEnable()
     {
         index = 0;
         textComponent.text = string.Empty;
+
+        playerObject.isDialogueOn = true;
+        cameraObject.isDialogueOn = true;
+
         StartDialogue();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && !pauseMenuObject.isPaused)
         {
             if (textComponent.text == dialogueLines[index])
             {
@@ -62,7 +77,9 @@ public class Dialogue : MonoBehaviour
         }
         else
         {
-            gameObject.SetActive(false);
+            playerObject.isDialogueOn = false;
+            cameraObject.isDialogueOn = false;
+            gameObject.SetActive(false);            
         }
     }
 }
