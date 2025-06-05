@@ -8,6 +8,7 @@ public class Generator : MonoBehaviour, IInteractable
     [SerializeField] private GameObject dialogueHolder;
     [SerializeField] private GameObject lightHolder;
     [SerializeField] private GameObject interactHolder;
+    [SerializeField] private GameObject satelliteActivate;
 
     [Header("Audio")]
     [SerializeField] private AudioSource activationAudio;
@@ -16,8 +17,9 @@ public class Generator : MonoBehaviour, IInteractable
     {
         dialogueHolder.SetActive(true);
         lightHolder.SetActive(true);
+        interactHolder.SetActive(true);
         interactHolder.SetActive(false);
-
+        
         if (activationAudio != null && !activationAudio.isPlaying)
         {
             activationAudio.Play();
