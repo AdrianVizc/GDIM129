@@ -5,9 +5,9 @@ using UnityEngine;
 public class PlayerRaycast : MonoBehaviour
 {
     [SerializeField] private float rayDistance = 10f;
-    [SerializeField] private GameObject revealObject;
     private string targetTag = "Interactable";
     private IInteractable currentInteractable;
+    CanvasGroup canvasGroup;
 
     private void Update()
     {
@@ -20,17 +20,25 @@ public class PlayerRaycast : MonoBehaviour
         {
             if (hit.collider.CompareTag(targetTag))
             {
-                revealObject.SetActive(true);
+                canvasGroup = hit.collider.GetComponentInChildren<CanvasGroup>();
+                canvasGroup.alpha = 1;
                 currentInteractable = hit.collider.GetComponent<IInteractable>();
             }
             else
             {
-                revealObject.SetActive(false);
+                if (canvasGroup != null)
+                {
+                    canvasGroup.alpha = 0;
+                }
             }
+            Debug.Log(canvasGroup);
         }
         else
         {
-            revealObject.SetActive(false);
+            if (canvasGroup != null)
+            {
+                canvasGroup.alpha = 0;
+            }
         }
 
         if (currentInteractable != null && Input.GetKeyDown(KeyCode.E))

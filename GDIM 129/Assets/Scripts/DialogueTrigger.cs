@@ -11,9 +11,9 @@ public class DialogueTrigger : MonoBehaviour, IInteractable
         dialogueHolder.SetActive(true);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player"))
         {
             dialogueHolder.SetActive(true);
         }

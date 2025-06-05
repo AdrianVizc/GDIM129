@@ -1429,13 +1429,14 @@ GameObject:
   - component: {fileID: 1406802500}
   - component: {fileID: 1406802499}
   - component: {fileID: 1406802502}
+  - component: {fileID: 1406802503}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1406802498
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1532,6 +1533,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fab392535fb23c41b78d4514e5dc4e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!225 &1406802503
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1406802497}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1504443453
 GameObject:
   m_ObjectHideFlags: 0
@@ -2194,7 +2207,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rayDistance: 3
-  revealObject: {fileID: 1406802497}
 --- !u!1 &1962058852
 GameObject:
   m_ObjectHideFlags: 0
