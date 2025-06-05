@@ -887,7 +887,7 @@ MonoBehaviour:
     \r\n> Fallback: HF telemetry queue... [ONLINE, QUEUE LENGTH: 128]  \r\n"
   - "** WARNING: Data gap detected **  \r\n> Filling missing entries with null flags... 
     \r\n> Logging resumed at [1985-06-05 07:14:03]  \r\n\r\n"
-  - "\r\nSYSTEM STATUS: STANDBY / MONITORING  \r\nAMBIENT TEMP: -48.6\xB0C  \r\nWIND
+  - "\rSYSTEM STATUS: STANDBY / MONITORING  \r\nAMBIENT TEMP: -48.6\xB0C  \r\nWIND
     SPEED: 62 km/h  \r\nVISIBILITY: <100m  \r\nSOLAR INPUT: INACTIVE  \r\nGENERATOR:
     ONLINE (DIESEL MODE)  \r\nBATTERY RESERVE: 19%  "
   - ">> NOTICE: TERMINAL 2 UNRESPONSIVE  \r\n>> LOCAL POWER INACTIVE  \r\n>> ACTION
@@ -2208,6 +2208,11 @@ MonoBehaviour:
   - "\r[1985-06-05 07:02:57]  \r\n*** CRITICAL ERROR: GENERATOR FAILURE  \r\n***
     SYSTEM SHUTDOWN INITIATED  \r\n\r\n[1985-06-05 07:02:59]  \r\n>>> TERMINAL OFFLINE
     <<<  \r\n\r\n--- END OF LOG ---  \r\n"
+  - ">> ALERT: SATELLITE BAY INACTIVE  \r\n>> SATELLITE ARRAYS NOT POWERED OR ALIGNED 
+    \r\n>> IMMEDIATE ACTION REQUIRED: PROCEED TO SATELLITE BAY FOR MANUAL ACTIVATION
+    AND ALIGNMENT OF DISH ARRAYS  \r\n>> FAILURE TO ACTIVATE WILL RESULT IN LOSS
+    OF EXTERNAL COMMUNICATIONS  \r\n>> RECOMMENDED: FOLLOW SAFETY PROTOCOLS DUE TO
+    POTENTIAL EXTERNAL HAZARDS  "
   textDisplaySpeed: 0.05
   playerObject: {fileID: 1531318805}
   cameraObject: {fileID: 8125550157732971665}
@@ -271130,12 +271135,20 @@ PrefabInstance:
       value: 235
       objectReference: {fileID: 0}
     - target: {fileID: 6960993965842032452, guid: 8af6af37156a6d44b9e477f997c4c1f5, type: 3}
+      propertyPath: far clip plane
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 6960993965842032452, guid: 8af6af37156a6d44b9e477f997c4c1f5, type: 3}
       propertyPath: m_CullingMask.m_Bits
       value: 1143
       objectReference: {fileID: 0}
     - target: {fileID: 7518203932586960095, guid: 8af6af37156a6d44b9e477f997c4c1f5, type: 3}
       propertyPath: m_Name
       value: CameraHolder
+      objectReference: {fileID: 0}
+    - target: {fileID: 8310286742279367245, guid: 8af6af37156a6d44b9e477f997c4c1f5, type: 3}
+      propertyPath: orthographic size
+      value: 8.14
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
