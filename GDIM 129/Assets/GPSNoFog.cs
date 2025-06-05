@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Rendering;
 
-public class NoFog : MonoBehaviour
+public class GPSNoFog : MonoBehaviour
 {
     public Camera cameraWithoutFog;
 

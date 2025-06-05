@@ -1,24 +1,27 @@
 using UnityEngine;
 using System.Collections;
 
-public class IndoorFogManager : MonoBehaviour
+public class GlobalFogManager : MonoBehaviour
 {
+    public static GlobalFogManager Instance;
+
     public float indoorFogDensity = 0.002f;
     public float transitionDuration = 1f;
 
     private float originalFogDensity;
-    public int fogZoneCounter = 0;
+    private int fogZoneCounter = 0;
     private Coroutine transitionCoroutine;
 
-    private void Start()
+    private void Awake()
     {
+        if (Instance == null) Instance = this;
+        else Destroy(gameObject);
+
         originalFogDensity = RenderSettings.fogDensity;
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void EnterFogZone()
     {
-        if (!other.CompareTag("Player")) return;
-
         fogZoneCounter++;
         if (fogZoneCounter == 1)
         {
@@ -26,10 +29,8 @@ public class IndoorFogManager : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    public void ExitFogZone()
     {
-        if (!other.CompareTag("Player")) return;
-
         fogZoneCounter = Mathf.Max(0, fogZoneCounter - 1);
         if (fogZoneCounter == 0)
         {
