@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Snow_Man01
+  m_Name: BaseMatPSX
   m_Shader: {fileID: -6465566751694194690, guid: 9811a975b6d99df45b93bb716dacc497, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -24,15 +24,15 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - Texture2D_4450AB74:
-        m_Texture: {fileID: 2800000, guid: 1f3b1f98223628c4483f990c3eb75020, type: 3}
+        m_Texture: {fileID: 2800000, guid: cb75410f35633f94089eb75d446f8657, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: 1f3b1f98223628c4483f990c3eb75020, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: 162153a64e1b6fd46b72763bb48dc8f8, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -52,11 +52,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 1f3b1f98223628c4483f990c3eb75020, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 2800000, guid: 8c87244e0489f6a4ca189023d1d24282, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -94,9 +94,9 @@ Material:
     - Boolean_D258FF8E: 1
     - Vector1_21C41D02: 512
     - Vector1_6F288C5B: 0.5
-    - Vector1_B2CC132F: 5.76
-    - Vector1_B9994903: 2.45
-    - Vector1_E8746023: 2.33
+    - Vector1_B2CC132F: 5.1
+    - Vector1_B9994903: -10
+    - Vector1_E8746023: 3.3
     - _AlphaClip: 0
     - _AlphaToMask: 0
     - _Blend: 0
@@ -136,7 +136,7 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
---- !u!114 &6880447603452138968
+--- !u!114 &78399650507605410
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
