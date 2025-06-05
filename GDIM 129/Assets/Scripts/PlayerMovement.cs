@@ -23,10 +23,14 @@ public class PlayerMovement : MonoBehaviour
 
     Rigidbody rb;
 
+    [HideInInspector] public bool isDialogueOn;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
+
+        isDialogueOn = false;
     }
     private void Update()
     {
@@ -44,7 +48,10 @@ public class PlayerMovement : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        MovePlayer();
+        if (!isDialogueOn)
+        {
+            MovePlayer(); 
+        }
     }
 
     private void MyInput()

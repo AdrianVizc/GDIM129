@@ -10,4 +10,9 @@ public class DialogueTrigger : MonoBehaviour, IInteractable
     {
         dialogueHolder.SetActive(true);
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        dialogueHolder.SetActive(true);
+    }
 }
