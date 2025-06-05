@@ -26,6 +26,9 @@ public class TerminalDialogue : MonoBehaviour
     [SerializeField] private AudioSource endAudioSource;
     [SerializeField] private float fadeDuration = 1.0f;
 
+    [Range(0f, 1f)]
+    [SerializeField] private float startAudioMaxVolume = 0.3f; // Volume the audio fades in to
+
     private void Start()
     {
         pauseMenuObject = GameObject.Find("PauseMenuCanvas").GetComponent<PauseMenu>();
@@ -43,7 +46,8 @@ public class TerminalDialogue : MonoBehaviour
         {
             startAudioSource.volume = 0f;
             startAudioSource.Play();
-            StartCoroutine(FadeAudio(startAudioSource, 1f, fadeDuration));
+            // Fade in to a quieter volume instead of 1f
+            StartCoroutine(FadeAudio(startAudioSource, startAudioMaxVolume, fadeDuration));
         }
 
         StartDialogue();
