@@ -1282,7 +1282,7 @@ RectTransform:
   m_GameObject: {fileID: 124273848}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 3.548532, z: 1}
+  m_LocalScale: {x: 1, y: 2.960257, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 401529613}
@@ -2672,7 +2672,7 @@ RectTransform:
   m_GameObject: {fileID: 214623605}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 3.5490854, z: 1}
+  m_LocalScale: {x: 1, y: 2.9602566, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 576857918}
@@ -4740,7 +4740,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -82, y: 0}
+  m_AnchoredPosition: {x: -64, y: 0}
   m_SizeDelta: {x: 1500, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &401529614
@@ -9062,7 +9062,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -82, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1500, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &576857919
@@ -9085,7 +9085,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: "[1985-06-05 07:02:51]  \r\n** RADIO LINK LOST  \r\n** SATELLITE TELEMETRY
+    INTERRUPTED  \r\n** SENSOR ARRAY UNRESPONSIVE  \r\n\n[1985-06-05 07:02:55]  \r\nSYSTEM
+    WARNING: Main power fluctuation  \r\n> Failing over to backup battery..."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 74785cf0b2af5294f8a614efdf5c93bc, type: 2}
   m_sharedMaterial: {fileID: 7507010759807381997, guid: 74785cf0b2af5294f8a614efdf5c93bc, type: 2}
