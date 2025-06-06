@@ -10,8 +10,7 @@ public class Enemy : MonoBehaviour
         idle,
         approach,
         lurk,
-        retreat,
-        disappear
+        retreat
     };
     private EnemyState currentState;
 
@@ -19,20 +18,20 @@ public class Enemy : MonoBehaviour
     private GameObject player;
 
     //Bounds
-    [SerializeField] private float fogViewDistance;
+    [SerializeField] private float minApproachDistance; //also the fog view distance
     [SerializeField] private float maxApproachDistance;
+    [SerializeField] private float bufferDistance;
+    private float retreatDistance = 15f;
+    private float distanceToPlayer;
 
     //Timers
     private float stateTimer;
-    private float idleDuration = 15f;
-    private float lurkDuration = 5f;
-    private float disappearDuration = 3f;
+    [SerializeField] private float idleDuration = 15f;
+    [SerializeField] private float lurkDuration = 3f;
 
-    private bool hasDestination;
-
-    //Mesh
-    private float disappearSpeed = 2f;
-    //private Color originalColor;
+    //[SerializeField] private Material originalMaterial;
+    //private Color currentColor;
+    //[SerializeField] private float disappearRate;
     
 
     // Start is called before the first frame update
@@ -41,62 +40,52 @@ public class Enemy : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         currentState = EnemyState.idle;
         stateTimer = idleDuration;
+        //currentColor = originalMaterial.color;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //ChangeStates();
-        //HandleStates();
-        //Debug.Log(currentState);
-        if (!hasDestination)
-        {
-            Vector2 pointAroundPlayer = Random.insideUnitCircle.normalized * maxApproachDistance;
-
-            Vector3 possiblePoint = player.transform.position + new Vector3(pointAroundPlayer.x, player.transform.position.y, pointAroundPlayer.y);
-
-            Vector3 playerToPoint = possiblePoint - player.transform.position;
-
-            if (playerToPoint.magnitude > fogViewDistance)
-            {
-                possiblePoint = player.transform.position + playerToPoint.normalized * maxApproachDistance;
-                possiblePoint.y = player.transform.position.y;
-            }
-
-            agent.SetDestination(possiblePoint);
-            hasDestination = true;
-        }
-
+        ChangeStates();
+        Debug.Log(currentState);
+        distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
     }
 
     private void ChangeStates()
     {
-        stateTimer -= Time.deltaTime;
+        // If there's a timer active, count it down
+        if (stateTimer >= 0)
+            stateTimer -= Time.deltaTime;
 
         switch (currentState)
         {
+            // Idle Behavior
             case EnemyState.idle:
-                if (DoesPlayerSeeMe())
-                {
-                    currentState = EnemyState.retreat;
-                }
-                if (stateTimer <= 0f)
+                // If still idle AND distance > minApproachDistance (meaning the enemy has room to move closer) --> Approach
+                if (stateTimer <= 0 && distanceToPlayer > minApproachDistance)
                 {
                     currentState = EnemyState.approach;
-                    stateTimer = 0f;
-                    hasDestination = false;
                 }
-
-                break;
-
-            case EnemyState.approach:
-                if (DoesPlayerSeeMe())
+                else if (distanceToPlayer < minApproachDistance) // no room to move closer OR is closer than we want --> Retreat
                 {
                     currentState = EnemyState.retreat;
-                    break;
                 }
-                if (agent.remainingDistance <= maxApproachDistance)
+                break;
+
+            // Approach Behavior
+            case EnemyState.approach:
+                // If there is room to move closer
+                if (distanceToPlayer > minApproachDistance)
                 {
+                    // Get direction from enemy to player, normalize it so it is unit length (1)
+                    Vector3 dirToPlayer = (player.transform.position - transform.position).normalized;
+                    // Then the position the enemy needs to go is: based off the player's position, take direction and give it a magnitude
+                    Vector3 targetPos = player.transform.position + dirToPlayer * (Random.Range(minApproachDistance, maxApproachDistance) + bufferDistance);
+                    agent.SetDestination(targetPos);
+                }
+                else
+                {
+                    agent.ResetPath();
                     currentState = EnemyState.lurk;
                     stateTimer = lurkDuration;
                 }
@@ -106,138 +95,24 @@ public class Enemy : MonoBehaviour
                 if (stateTimer <= 0f)
                 {
                     currentState = EnemyState.retreat;
-                    stateTimer = 0f;
                 }
                 break;
 
             case EnemyState.retreat:
-                if (agent.remainingDistance <= agent.stoppingDistance)
-                {
-                    currentState = EnemyState.disappear;
-                    stateTimer = disappearDuration;
-                    hasDestination = false;
-                }
-                break;
+                Vector3 dirAwayFromPlayer = -(player.transform.position - transform.position).normalized;
+                Vector3 retreatPos = player.transform.position + dirAwayFromPlayer * retreatDistance;
+                agent.SetDestination(retreatPos);
+                //currentColor.a = Mathf.Clamp01(currentColor.a - disappearRate * Time.deltaTime);
+                //originalMaterial.color = currentColor;
 
-            case EnemyState.disappear:
-                if (stateTimer <= 0f)
+                if (Vector3.Distance(transform.position, player.transform.position) > retreatDistance)
                 {
                     currentState = EnemyState.idle;
                     stateTimer = idleDuration;
-                    hasDestination = false;
                 }
                 break;
         }
 
-    }
-
-    private void HandleStates()
-    {
-        switch(currentState)
-        {
-            case EnemyState.idle:
-                IdleLogic();
-                break;
-            case EnemyState.approach:
-                ApproachLogic();
-                break;
-            case EnemyState.lurk:
-                LurkLogic();
-                break;
-            case EnemyState.retreat:
-                RetreatLogic();
-                break;
-            case EnemyState.disappear:
-                DisappearLogic();
-                break;
-        }
-    }
-
-    private void IdleLogic()
-    {
-        if (!hasDestination)
-        {
-            agent.SetDestination(GetRandomPointInFog());
-            hasDestination = true;
-            Debug.Log("IDLE");
-        }
-    }
-
-    private void ApproachLogic()
-    {
-        if (!hasDestination)
-        {
-            Vector3 direction = (transform.position - player.transform.position).normalized;
-            Vector3 target = player.transform.position + direction * (maxApproachDistance);
-            agent.SetDestination(GetValidNavmeshPoint(target));
-            hasDestination = true;  
-        }
-    }
-
-    private void LurkLogic()
-    {
-        agent.ResetPath();
-        hasDestination = false;
-    }
-
-    private void RetreatLogic()
-    {
-        agent.ResetPath();
-        hasDestination = false;
-
-        Vector3 directionAway = (transform.position - player.transform.position).normalized;
-        transform.position += directionAway * disappearSpeed * Time.deltaTime;
-    }
-
-    private void DisappearLogic()
-    {
-        //agent.ResetPath();
-        //hasDestination = false;
-
-        //Vector3 directionAway = (transform.position - player.transform.position).normalized;
-        //transform.position += directionAway * disappearSpeed * Time.deltaTime;
-    }
-
-    private Vector3 GetValidNavmeshPoint(Vector3 target)
-    {
-        //Checking if the Vector3 target is a valid position for the NavMesh
-        if (NavMesh.SamplePosition(target, out NavMeshHit hit, 3f, NavMesh.AllAreas))
-            return hit.position;
-        return transform.position;
-    }
-
-    private Vector3 GetRandomPointInFog()
-    {
-        const int maxAttempts = 10;
-
-        for (int i = 0; i < maxAttempts; i++)
-        {
-            //Create a circle around player to consider fog
-            Vector2 pointAroundPlayer = Random.insideUnitCircle.normalized * maxApproachDistance;
-
-            //Pick a point with respect to where the player is. Also y --> z from 2D to 3D space
-            Vector3 possiblePoint = player.transform.position + new Vector3(pointAroundPlayer.x, player.transform.position.y, pointAroundPlayer.y);
-            
-            //Check where this point is with respect to the player. This is the vector from player to point.
-            Vector3 playerToPoint = possiblePoint - player.transform.position;
-            
-            //If this point is outside the player's fogViewDistance
-            if (playerToPoint.magnitude > fogViewDistance)
-            {
-                //Then we can set it as our location to go
-                possiblePoint = player.transform.position + playerToPoint.normalized * maxApproachDistance;
-                possiblePoint.y = player.transform.position.y;
-            }
-            else
-            {
-                possiblePoint = transform.position;
-            }
-
-            if (GetValidNavmeshPoint(possiblePoint) != transform.position)
-                return possiblePoint;
-        }
-
-        return GetValidNavmeshPoint(transform.position + Random.insideUnitSphere * 2f);
     }
 
     private bool DoesPlayerSeeMe()
@@ -251,7 +126,7 @@ public class Enemy : MonoBehaviour
         float distanceSquared = playerToEnemy.x * playerToEnemy.x + playerToEnemy.y * playerToEnemy.y + playerToEnemy.z * playerToEnemy.z;
 
         //Out of player view
-        if (distanceSquared > fogViewDistance * fogViewDistance)
+        if (distanceSquared > minApproachDistance * minApproachDistance)
             return false;
 
         //Get player forward vector

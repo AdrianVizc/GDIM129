@@ -9969,6 +9969,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3695430918361020415, guid: 001d511e94541e648a671aa2928eab96, type: 3}
       insertIndex: -1
       addedObject: {fileID: 601548726}
+    - targetCorrespondingSourceObject: {fileID: 3695430918361020415, guid: 001d511e94541e648a671aa2928eab96, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 601548727}
   m_SourcePrefab: {fileID: 100100000, guid: 001d511e94541e648a671aa2928eab96, type: 3}
 --- !u!1 &601548725 stripped
 GameObject:
@@ -9985,7 +9988,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 1
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -9997,6 +10000,26 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &601548727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 601548725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6906e2fe64c5f15449cf5607a57919aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agent: {fileID: 601548726}
+  minApproachDistance: 20
+  maxApproachDistance: 25
+  bufferDistance: 5
+  idleDuration: 15
+  lurkDuration: 3
+  originalMaterial: {fileID: 2100000, guid: 2b7df4954d5f2624b806103c98cfbbe4, type: 2}
+  disappearRate: 15
 --- !u!1 &602292871
 GameObject:
   m_ObjectHideFlags: 0
