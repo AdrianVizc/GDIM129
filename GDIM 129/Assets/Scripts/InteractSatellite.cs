@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;  // Import TextMeshPro namespace
 
 public class InteractSatellite : MonoBehaviour
 {
     [SerializeField] private Animator animator;
     [SerializeField] private GameObject interactUI;
     [SerializeField] private AudioSource interactAudioSource; // Assign in Inspector
+
+    [SerializeField] private TMP_Text allSatellitesText; // Reference to the TextMeshPro text to activate
 
     private bool playerInRange;
     private bool isActivated = false;  // Track if satellite has been activated
@@ -16,6 +19,9 @@ public class InteractSatellite : MonoBehaviour
     private void Start()
     {
         interactUI.SetActive(false);
+
+        if (allSatellitesText != null)
+            allSatellitesText.gameObject.SetActive(false); // Make sure text is off initially
     }
 
     private void Update()
@@ -65,9 +71,9 @@ public class InteractSatellite : MonoBehaviour
     {
         Debug.Log("All satellites activated!");
 
-        // TODO: Replace this with your actual logic:
-        // - Unlock a door
-        // - Trigger cutscene
-        // - Show a message, etc.
+        if (allSatellitesText != null)
+        {
+            allSatellitesText.gameObject.SetActive(true);
+        }
     }
 }
