@@ -1,141 +1,189 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
-    private enum EnemyState
+    private enum State
     {
-        idle,
-        approach,
-        lurk,
-        retreat
-    };
-    private EnemyState currentState;
+        Stalking,
+        Lurking,
+        BackingAway,
+        DartingAway,
+        Pausing
+    }
+
+    private State currentState;
 
     [SerializeField] private NavMeshAgent agent;
-    private GameObject player;
+    [SerializeField] private GameObject player;
 
-    //Bounds
-    [SerializeField] private float minApproachDistance; //also the fog view distance
-    [SerializeField] private float maxApproachDistance;
-    [SerializeField] private float bufferDistance;
-    private float retreatDistance = 15f;
-    private float distanceToPlayer;
+    [Header("Distances")]
+    [SerializeField] private float minDistance = 5f;       // Never closer than this
+    [SerializeField] private float lurkDistance = 8f;      // Distance to lurk/watch player
+    [SerializeField] private float dartDistance = 20f;     // Distance to dart away to
 
-    //Timers
-    private float stateTimer;
-    [SerializeField] private float idleDuration = 15f;
-    [SerializeField] private float lurkDuration = 3f;
+    [Header("Speeds")]
+    [SerializeField] private float stalkSpeed = 2f;
+    [SerializeField] private float backAwaySpeed = 3.5f;
+    [SerializeField] private float dartSpeed = 8f;
 
-    //[SerializeField] private Material originalMaterial;
-    //private Color currentColor;
-    //[SerializeField] private float disappearRate;
-    
+    [Header("Timers")]
+    [SerializeField] private float backAwayDuration = 3f;
+    [SerializeField] private float pauseDuration = 4f;
 
-    // Start is called before the first frame update
-    void Start()
+    private float timer;
+
+    private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
-        currentState = EnemyState.idle;
-        stateTimer = idleDuration;
-        //currentColor = originalMaterial.color;
+        if (!player) player = GameObject.FindGameObjectWithTag("Player");
+        currentState = State.Lurking;
+        timer = 0f;
+        agent.speed = stalkSpeed;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        ChangeStates();
-        Debug.Log(currentState);
-        distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
-    }
-
-    private void ChangeStates()
-    {
-        // If there's a timer active, count it down
-        if (stateTimer >= 0)
-            stateTimer -= Time.deltaTime;
-
         switch (currentState)
         {
-            // Idle Behavior
-            case EnemyState.idle:
-                // If still idle AND distance > minApproachDistance (meaning the enemy has room to move closer) --> Approach
-                if (stateTimer <= 0 && distanceToPlayer > minApproachDistance)
-                {
-                    currentState = EnemyState.approach;
-                }
-                else if (distanceToPlayer < minApproachDistance) // no room to move closer OR is closer than we want --> Retreat
-                {
-                    currentState = EnemyState.retreat;
-                }
+            case State.Stalking:
+                StalkPlayer();
                 break;
-
-            // Approach Behavior
-            case EnemyState.approach:
-                // If there is room to move closer
-                if (distanceToPlayer > minApproachDistance)
-                {
-                    // Get direction from enemy to player, normalize it so it is unit length (1)
-                    Vector3 dirToPlayer = (player.transform.position - transform.position).normalized;
-                    // Then the position the enemy needs to go is: based off the player's position, take direction and give it a magnitude
-                    Vector3 targetPos = player.transform.position + dirToPlayer * (Random.Range(minApproachDistance, maxApproachDistance) + bufferDistance);
-                    agent.SetDestination(targetPos);
-                }
-                else
-                {
-                    agent.ResetPath();
-                    currentState = EnemyState.lurk;
-                    stateTimer = lurkDuration;
-                }
+            case State.Lurking:
+                Lurk();
                 break;
-
-            case EnemyState.lurk:
-                if (stateTimer <= 0f)
-                {
-                    currentState = EnemyState.retreat;
-                }
+            case State.BackingAway:
+                BackAway();
                 break;
-
-            case EnemyState.retreat:
-                Vector3 dirAwayFromPlayer = -(player.transform.position - transform.position).normalized;
-                Vector3 retreatPos = player.transform.position + dirAwayFromPlayer * retreatDistance;
-                agent.SetDestination(retreatPos);
-                //currentColor.a = Mathf.Clamp01(currentColor.a - disappearRate * Time.deltaTime);
-                //originalMaterial.color = currentColor;
-
-                if (Vector3.Distance(transform.position, player.transform.position) > retreatDistance)
-                {
-                    currentState = EnemyState.idle;
-                    stateTimer = idleDuration;
-                }
+            case State.DartingAway:
+                DartAway();
+                break;
+            case State.Pausing:
+                Pause();
                 break;
         }
-
     }
 
-    private bool DoesPlayerSeeMe()
+    private void StalkPlayer()
     {
-        if (player == null)
-            return false;
+        agent.speed = stalkSpeed;
 
-        //Get Vector from player to enemy
-        Vector3 playerToEnemy = (this.transform.position - player.transform.position).normalized;
+        float distance = Vector3.Distance(transform.position, player.transform.position);
 
-        float distanceSquared = playerToEnemy.x * playerToEnemy.x + playerToEnemy.y * playerToEnemy.y + playerToEnemy.z * playerToEnemy.z;
+        // Move to a position exactly minDistance away, following player direction
+        Vector3 dirToPlayer = (player.transform.position - transform.position).normalized;
+        Vector3 targetPos = player.transform.position - dirToPlayer * minDistance;
 
-        //Out of player view
-        if (distanceSquared > minApproachDistance * minApproachDistance)
-            return false;
+        agent.SetDestination(targetPos);
 
-        //Get player forward vector
-        Vector3 playerForward = player.transform.forward;
+        // Face player smoothly
+        FacePlayer();
 
-        //Dot the two vectors
-        float dotProduct = Vector3.Dot(playerForward, playerToEnemy);
+        // If player gets closer than minDistance, back away
+        if (distance < minDistance)
+        {
+            timer = backAwayDuration;
+            currentState = State.BackingAway;
+        }
+        else if (distance > lurkDistance + 2f)
+        {
+            // If enemy too far, start stalking to close gap
+            currentState = State.Stalking;
+        }
+    }
 
-        //This will tell us if the player is looking at the enemy, we need 0.8 for a more precise view angle
-        return dotProduct > 0.8f;
+    private void Lurk()
+    {
+        agent.ResetPath();
+
+        // Position at lurkDistance from player (if needed, move there)
+        float distance = Vector3.Distance(transform.position, player.transform.position);
+
+        if (distance > lurkDistance + 0.5f || distance < lurkDistance - 0.5f)
+        {
+            Vector3 dirToPlayer = (player.transform.position - transform.position).normalized;
+            Vector3 targetPos = player.transform.position - dirToPlayer * lurkDistance;
+            agent.speed = stalkSpeed;
+            agent.SetDestination(targetPos);
+        }
+        else
+        {
+            agent.ResetPath();
+        }
+
+        FacePlayer();
+
+        // If player approaches closer than lurkDistance but farther than minDistance, stalk
+        if (distance < lurkDistance && distance > minDistance)
+        {
+            currentState = State.Stalking;
+        }
+        // If player comes very close, back away
+        else if (distance <= minDistance)
+        {
+            timer = backAwayDuration;
+            currentState = State.BackingAway;
+        }
+    }
+
+    private void BackAway()
+    {
+        agent.speed = backAwaySpeed;
+
+        // Move away from player but still face them
+        Vector3 dirAway = (transform.position - player.transform.position).normalized;
+        Vector3 retreatTarget = transform.position + dirAway * 1.5f; // small step back
+
+        agent.SetDestination(retreatTarget);
+
+        FacePlayer();
+
+        timer -= Time.deltaTime;
+        if (timer <= 0f)
+        {
+            // Dart away to a random spot far from player
+            Vector3 randomDir = Random.onUnitSphere;
+            randomDir.y = 0;
+            Vector3 dartTarget = player.transform.position + randomDir.normalized * dartDistance;
+            agent.speed = dartSpeed;
+            agent.SetDestination(dartTarget);
+
+            currentState = State.DartingAway;
+        }
+    }
+
+    private void DartAway()
+    {
+        FacePlayer();
+
+        // Check if reached dart destination or close enough
+        if (!agent.pathPending && agent.remainingDistance <= 0.5f)
+        {
+            timer = pauseDuration;
+            currentState = State.Pausing;
+            agent.ResetPath();
+        }
+    }
+
+    private void Pause()
+    {
+        FacePlayer();
+
+        timer -= Time.deltaTime;
+        if (timer <= 0f)
+        {
+            currentState = State.Lurking;
+        }
+    }
+
+    private void FacePlayer()
+    {
+        Vector3 lookDir = (player.transform.position - transform.position);
+        lookDir.y = 0; // keep only horizontal rotation
+        if (lookDir.sqrMagnitude > 0.001f)
+        {
+            Quaternion rot = Quaternion.LookRotation(lookDir);
+            transform.rotation = Quaternion.Slerp(transform.rotation, rot, Time.deltaTime * 5f);
+        }
     }
 }

@@ -7,8 +7,11 @@ public class InteractSatellite : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private GameObject interactUI;
     [SerializeField] private AudioSource interactAudioSource; // Assign in Inspector
+
     private bool playerInRange;
     private bool isActivated = false;  // Track if satellite has been activated
+
+    private static int activatedCount = 0; // Shared across all satellites
 
     private void Start()
     {
@@ -30,7 +33,13 @@ public class InteractSatellite : MonoBehaviour
             }
 
             isActivated = true;  // Prevent further activations
-            playerInRange = false; // Optional: reset
+            playerInRange = false;
+
+            activatedCount++;
+            if (activatedCount == 3)
+            {
+                OnAllSatellitesActivated();
+            }
         }
     }
 
@@ -50,5 +59,15 @@ public class InteractSatellite : MonoBehaviour
             playerInRange = false;
             interactUI.SetActive(false);
         }
+    }
+
+    private void OnAllSatellitesActivated()
+    {
+        Debug.Log("All satellites activated!");
+
+        // TODO: Replace this with your actual logic:
+        // - Unlock a door
+        // - Trigger cutscene
+        // - Show a message, etc.
     }
 }
